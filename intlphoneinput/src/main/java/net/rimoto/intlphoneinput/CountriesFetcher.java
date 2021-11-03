@@ -49,7 +49,7 @@ public class CountriesFetcher {
         }
         mCountries = new CountryList();
         try {
-            JSONArray countries = new JSONArray(getJsonFromRaw(context, R.raw.countries));
+            JSONArray countries = new JSONArray(getJsonFromRaw(context, R.raw.net_rimoto_intlphoneinput_countries));
             for (int i = 0; i < countries.length(); i++) {
                 try {
                     JSONObject country = (JSONObject) countries.get(i);
