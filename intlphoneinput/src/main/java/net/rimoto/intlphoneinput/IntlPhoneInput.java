@@ -1,5 +1,6 @@
 package net.rimoto.intlphoneinput;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -142,7 +143,7 @@ public class IntlPhoneInput extends RelativeLayout {
     public void setDefault() {
         try {
             TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
-            String phone = telephonyManager.getLine1Number();
+            @SuppressLint("MissingPermission") String phone = telephonyManager.getLine1Number();
             if (phone != null && !phone.isEmpty()) {
                 this.setNumber(phone);
             } else {
