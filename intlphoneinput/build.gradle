@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 30
@@ -36,35 +37,22 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
 
-artifacts {
-    archives sourcesJar
-}
+                // You can then customize attributes of the publication as shown below.
+                groupId groupId
+                artifactId = "intlphoneinput"
+                version = '1.0'
 
-apply plugin: 'com.jfrog.bintray'
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'IntlPhoneInput'
-        userOrg = "rimoto"
-        licenses = ['Apache-2.0']
-        publish = true
-        publicDownloadNumbers = true
-        vcsUrl = gitUrl
-        version {
-            name = versionId
-            released  = new Date()
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
-            gpg {
-                sign = true
+                description "A custom view for Android that allows the user to enter his phone number in an elegant and friendly way."
             }
         }
     }
 }
+
