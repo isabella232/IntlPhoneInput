@@ -45,7 +45,7 @@ public class IntlPhoneInput extends RelativeLayout {
     private CountriesFetcher.CountryList mCountries;
     private IntlPhoneInputListener mIntlPhoneInputListener;
 
-    private String mHint;
+    private String mHint = "";
 
     /**
      * Constructor
@@ -280,19 +280,19 @@ public class IntlPhoneInput extends RelativeLayout {
                 iso = mSelectedCountry.getIso();
             }
             Phonenumber.PhoneNumber phoneNumber = mPhoneUtil.parse(number, iso);
-	
-	    iso = mPhoneUtil.getRegionCodeForNumber(phoneNumber);
-	    if(iso == null) {
-		return;
-	    }
+
+            iso = mPhoneUtil.getRegionCodeForNumber(phoneNumber);
+	        if(iso == null) {
+		        return;
+	        }
             int countryIdx = mCountries.indexOfIso(iso);
 		
 		
-	    if (countryIdx < 0) {
-		return;
-	    }
+            if (countryIdx < 0) {
+                return;
+            }
 			
-	    mSelectedCountry = mCountries.get(countryIdx);		
+	        mSelectedCountry = mCountries.get(countryIdx);
 		
             mCountrySpinner.setSelection(countryIdx);
 			
